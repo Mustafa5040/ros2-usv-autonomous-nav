@@ -1,0 +1,43 @@
+/**:
+  ros__parameters:
+    driver:
+      i_enable_ir: true
+      i_publish_tf_from_calibration: true
+      i_pipeline_auto_calibration_mode: "OFF"
+    pipeline_gen:
+      i_pipeline_type: RGBD
+      i_nn_type: rgb
+      i_enable_rgbd: true
+    nn:
+      nn.use_zoo: false
+      i_nn_family: "detection"
+      i_enable_nn: true
+      i_model_name: "yolov8n"
+      i_model_path: "/root/ida_ws/vision/models/yolov8n.superblob"
+      i_blob_path: "/root/ida_ws/vision/models/yolov8n.superblob"
+      i_config_path: "/root/ida_ws/vision/models/config.json"
+      i_nn_config_path: "/root/ida_ws/vision/models/config.json"
+      i_nn_confidence_threshold: 0.5
+      i_nn_depth_lower_threshold: 100
+      i_nn_depth_upper_threshold: 15000
+      i_enable_passthrough: true
+      i_max_q_size: 20
+    camera:
+      i_enable_imu: false
+    stereo:
+      i_undistorted: true
+      i_low_bandwidth: true
+      i_fps: 10.0
+      i_aligned: false
+      i_board_socket_id: 0
+      i_enable_speckle_filter: true
+      i_speckle_filter_speckle_range: 28
+      i_enable_temporal_filter: true
+      i_enable_spatial_filter: true
+      i_enable_threshold_filter: true
+      i_threshold_filter_max_range: 15000
+    rgb:
+      i_low_bandwidth: true
+      i_undistorted: true
+      i_publish_compressed: false
+      i_fps: 10.0

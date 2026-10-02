@@ -1,0 +1,14 @@
+[Unit]
+Description=Ertugrul IDA Startup Script
+After=network.target docker.service
+Requires=docker.service
+
+[Service]
+Type=forking
+User=root
+ExecStart=/bin/bash /home/kaan/kulup_ws/KAAN-Teknoloji/Ertugrul/Teknofest26/ida_start_comp.sh
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

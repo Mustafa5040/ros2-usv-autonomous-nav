@@ -1,0 +1,28 @@
+FROM ros:humble-ros-base
+
+RUN apt-get update && apt-get install -y \
+    python3-pip \
+    python3-opencv \
+    libopencv-dev \
+    git \
+    ros-humble-vision-msgs \
+    ros-humble-geographic-msgs \
+    ros-humble-tf2-ros \
+    ros-humble-tf2-geometry-msgs \
+    ros-humble-nav2-simple-commander \
+    ros-humble-robot-localization \
+    ros-humble-nav2-controller \
+    ros-humble-nav2-planner \
+    ros-humble-nav2-behaviors \
+    ros-humble-nav2-bt-navigator \
+    ros-humble-nav2-velocity-smoother \
+    ros-humble-nav2-lifecycle-manager \
+    ros-humble-nav2-costmap-2d \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN pip3 install --no-cache-dir \
+    numpy
+
+WORKDIR /root/ida_ws
+
+CMD ["bash"]

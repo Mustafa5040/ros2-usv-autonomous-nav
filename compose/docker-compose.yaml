@@ -1,0 +1,45 @@
+services:
+  micro_ros_agent:
+    image: microros/micro-ros-agent:humble
+    container_name: ida_microros
+    network_mode: host
+    privileged: true
+    restart: always
+    volumes:
+      - /dev:/dev
+      - /home/kaan/kulup_ws/KAAN-Teknoloji/Ertugrul/Teknofest26:/root/ida_ws
+    command: serial --dev /dev/ttyACM1 baudrate=921600
+
+  depthai_camera:
+    build:
+      context: .
+      dockerfile: /home/kaan/kulup_ws/KAAN-Teknoloji/Ertugrul/Teknofest26/Dockerfile.camera
+    container_name: ida_depthai
+    network_mode: host
+    privileged: true
+    restart: always
+    environment:
+    -   TZ=Europe/Istanbul
+    volumes:
+      - /dev:/dev
+      - /home/kaan/kulup_ws/KAAN-Teknoloji/Ertugrul/Teknofest26:/root/ida_ws
+    command: python3 /root/ida_ws/vision/oak_node.py
+
+  autonomy_control:
+    build:
+      context: .
+      dockerfile: /home/kaan/kulup_ws/KAAN-Teknoloji/Ertugrul/Teknofest26/Dockerfile.autonomy
+    container_name: ida_autonomy
+    network_mode: host
+    privileged: true
+    restart: always
+    depends_on:
+      - micro_ros_agent
+      - depthai_camera
+    environment:
+      - TZ=Europe/Istanbul
+    volumes:
+      - /dev:/dev
+      - /sys:/sys
+      - /home/kaan/kulup_ws/KAAN-Teknoloji/Ertugrul/Teknofest26:/root/ida_ws
+    command: bash -c "sleep 10 && source /opt/ros/humble/setup.bash && python3 /root/ida_ws/launch/mission.launch.py"

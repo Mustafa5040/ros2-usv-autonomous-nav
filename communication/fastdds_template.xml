@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<profiles xmlns="http://www.eprosima.com/XMLSchemas/fastRTPS_Profiles">
+    <transport_descriptors>
+        <transport_descriptor>
+            <transport_id>udp_transport</transport_id>
+            <type>UDPv4</type>
+            
+            <interfaceWhiteList>
+                <address>127.0.0.1</address>
+                <address>IP_ADRESS_PLACEHOLDER</address> </interfaceWhiteList>
+            
+            <sendBufferSize>1048576</sendBufferSize>
+            <receiveBufferSize>1048576</receiveBufferSize>
+            <maxMessageSize>65000</maxMessageSize>
+        </transport_descriptor>
+
+        <transport_descriptor>
+            <transport_id>shm_transport</transport_id>
+            <type>SHM</type>
+            <maxMessageSize>65000</maxMessageSize>
+            <segment_size>1048576</segment_size>
+        </transport_descriptor>
+    </transport_descriptors>
+
+    <participant profile_name="participant_profile" is_default_profile="true">
+        <rtps>
+            <userTransports>
+                <transport_id>udp_transport</transport_id>
+                <transport_id>shm_transport</transport_id>
+            </userTransports>
+            <useBuiltinTransports>false</useBuiltinTransports>
+        </rtps>
+    </participant>
+</profiles>

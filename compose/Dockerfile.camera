@@ -1,0 +1,20 @@
+FROM ros:humble-ros-base
+
+RUN apt-get update && apt-get install -y \
+    python3-pip \
+    python3-opencv \
+    libopencv-dev \
+    git \
+    ffmpeg \
+    udev \
+    ros-humble-vision-msgs \
+    ros-humble-depthai-ros-msgs \
+    ros-humble-cv-bridge \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN pip3 install --no-cache-dir \
+    depthai \
+    numpy
+WORKDIR /root/ida_ws
+
+CMD ["python3", "/root/ida_ws/vision/oak_node.py"]
